@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>品牌管理</title>
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plug0ins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugin
+    s/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -16,96 +17,17 @@
 	<script src="../plugins/angularjs/pagination.js"></script>
     <link rel="stylesheet"href="../plugins/angularjs/pagination.css">
         <!-- 分页组件结束 -->
-	<script>
-        var app=angular.module('pinyougou',['pagination']);//定义品优购模块
-        //定义控制器
-        app.controller('brandController',function($scope,$http){
-            //重新加载列表 数据
-            $scope.reloadList=function(){
-                //切换页码
-               /* $scope.findPage( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);*/
-                $scope.search();
-            }
-            //分页
-            $scope.findPage=function(page,rows){
-                $http.get('../brand/findPage.do?page='+page+'&rows='+rows).success(
-                    function(response){
-                        $scope.list=response.rows;
-                        $scope.paginationConf.totalItems=response.total;//更新总记录数
-                    }
-                );
-            }
-            //分页控件配置
-            $scope.paginationConf = {
-                currentPage: 1,
-                totalItems: 10,
-                itemsPerPage: 10,
-                perPageOptions: [10, 20, 30, 40, 50],
-                onChange: function(){
-                    $scope.reloadList();//重新加载
 
-                }
-            };
-            $scope.entity={};
-            $scope.save=function () {
-                var methodName="";
-                if($scope.entity.id!=null&&$scope.entity.id!=undefined){
-                    methodName="update";
-                }else{
-                    methodName="add";
-                }
-                $http.post("/brand/"+methodName+".do", $scope.entity).success(
-                    function (response) {
-                        if(response.success){
-                            alert(response.message);
-                            $scope.reloadList();
-                        }else{
-                            alert(response.message);
-                        }
-                    }
-                )
-            }
-            $scope.findOne=function (id) {
-                $http.get("/brand/findOne.do?id="+id).success(
-                    function (response) {
-                        $scope.entity=response;
-                    }
-                )
-            }
-            var ids=[];
-            $scope.updateSelect=function ($event,id) {
-                if($event.target.checked){
-                    ids.push(id)
-                }else{
-                   ids.splice(ids.indexOf(id),1)
-                }
-            }
-            $scope.del=function () {
-                $http.get("/brand/deleteByIds.do?ids="+ids).success(
-                    function (response) {
-                        if(response.success){
-                            alert(response.message);
-                            $scope.reloadList();
-                        }else{
-                            alert(response.message);
-                        }
-                })
-            }
-            $scope.searchEntity={};
-            $scope.search=function () {
-                $http.post("/brand/search.do?page="+$scope.paginationConf.currentPage+"&rows=10",$scope.searchEntity).success(
-                    function (response) {
-                        $scope.paginationConf.totalItems=response.total;
-                        $scope.list=response.rows;
-                    })
-            }
-        });
+    <script src="../js/base_pagination.js"></script>
+
+    <script src="../js/controller/baseController.js"></script>
+
+    <script src="../js/controller/brandController.js"></script>
+    <script src="../js/service/brandService.js"></script>
 
 
-
-	</script>
 </head>
-<body ng-app="pinyougou" ng-controller="brandController" class="hold-transition skin-red sidebar-mini">
+<body ng-app="pinyougou" ng-controller="brandController"  class="hold-transition skin-red sidebar-mini">
   <!-- .box-body -->
                     <div class="box-header with-border">
                         <h3 class="box-title">品牌管理</h3>

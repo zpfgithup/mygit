@@ -1,4 +1,4 @@
-package com.pinyougou.entity;
+package entity;
 
 public class Result {
     private String message;
@@ -7,7 +7,7 @@ public class Result {
     public Result() {
     }
 
-    public Result(String message, boolean success) {
+    public Result( boolean success,String message) {
         this.message = message;
         this.success = success;
     }

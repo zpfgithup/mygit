@@ -1,14 +1,12 @@
 package com.pinyougou.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.entity.PageResult;
-import com.pinyougou.entity.Result;
+import entity.PageResult;
+import entity.Result;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,10 +28,10 @@ public class BrandController {
     public Result add(@RequestBody TbBrand tbBrand){
         try {
             brandService.add(tbBrand);
-            return new Result("新增成功",true);
+            return new Result(true,"新增成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result("新增失败",false);
+            return new Result(false,"新增失败");
         }
     }
     @RequestMapping("/findOne")
@@ -45,20 +43,20 @@ public class BrandController {
     public Result update(@RequestBody TbBrand tbBrand){
         try {
             brandService.update(tbBrand);
-            return new Result("修改成功",true);
+            return new Result(true,"修改成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result("修改失败",false);
+            return new Result(false,"修改失败");
         }
     }
     @RequestMapping("/deleteByIds")
     public Result deleteByIds(Long[] ids){
         try {
             brandService.deleteByIds(ids);
-            return new Result("删除成功",true);
+            return new Result(true,"删除成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result("删除失败",false);
+            return new Result(false,"删除失败");
         }
     }
     @RequestMapping("/search")

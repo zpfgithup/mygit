@@ -129,6 +129,13 @@
       </if>
     </trim>
   </insert>
+  <insert id="insert" parameterType="com.pinyougou.pojo.TbSpecification">
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into tb_specification (id, spec_name)
+    values (#{id,jdbcType=BIGINT}, #{specName,jdbcType=VARCHAR})
+</insert>
   <select id="countByExample" parameterType="com.pinyougou.pojo.TbSpecificationExample" resultType="java.lang.Integer" >
     select count(*) from tb_specification
     <if test="_parameter != null" >
@@ -171,4 +178,5 @@
     set spec_name = #{specName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
 </mapper>
